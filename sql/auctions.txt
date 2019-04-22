@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `auctions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `auction` varchar(36) DEFAULT NULL,
+  `item` longtext,
+  `initialprice` double(6,2) unsigned zerofill DEFAULT NULL,
+  `currentprice` double(6,2) unsigned zerofill DEFAULT NULL,
+  `auctionholder` varchar(36) DEFAULT NULL,
+  `bidder` varchar(36) DEFAULT NULL,
+  `creationtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `runout` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `serverID` varchar(80) DEFAULT NULL,
+  `data` longtext,
+  `itemname` varchar(255) DEFAULT NULL,
+  `ownername` varchar(16) DEFAULT NULL,
+  `amount` smallint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`auction`,`auctionholder`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

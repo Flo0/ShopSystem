@@ -1,0 +1,68 @@
+#Dies ist die maximale Anzahl an gekauften items, 
+#welches den Marktpreis anheben kann. (+ bei mehr gekauften/ - bei mehr verkauften)
+#Nach diesem ThreshHold steigt der Preis nicht weiter.
+#Das Standard-MarketFormular ist dann bei ca 500% bzw 20% des Marktpreises.
+WareEconomyLimit: 10000
+
+#Jede Stunde wird der Markt etwas abk�hlen.
+#Der Preis bewegt sich je nach Stand wieder zu seinem Ursprung zur�ck. 
+#Wird vom Markt als X items kaufen oder X items verkaufen angesehen.
+#Sollte diese Zahl negativ sein, so heizt sich der Markt bis
+#zum WareEconomyLimit auf. (nicht empfohlen)
+#Kann auf 0 gesetzt werden, um Preise niemals abflauen zu lassen.
+MarketCooling: 10
+
+#Diese Funktion soll anhand des momentanten Marktstandes einen Multiplikator f�r
+#den Preis P(n) mit P Element R+ & m Element N errechnen. 
+#Es gilt: 
+#[-WareEconomyLimit <= n <= +WareEconomyLimit] & [0 <= P <= Unendlich]
+#Wenn n = 0 dann ist der Markt in Null-Lage. 
+#Bei n+ wird mehr gekauft als verkauft.
+#Bei n- wird mehr verkauft, als gekauft.
+#P(n) soll 1.0 bei n = 0 sein, damit gilt Preis(P(n=0)) = Preis * 1.0
+#Variablen:
+#market -> Der momentane Marktwert
+#marketBound -> Das WareEconomyLimit
+#weight -> Das Preisgewicht (Ist normalerweise 1.0 beim kaufen und 0.5 beim verkaufen)
+
+#Standard ist eine nicht eulerische Expotentialfunktion -> 1.1^(market *(1 / (marketLimit * 0.05922))) * weight
+
+MarketFormular: '1.1^(market *(1 / (marketBound * 0.05922))) * weight'
+
+mysql:
+    host: "176.9.38.108"
+    port: "3306"
+    user: "debug"
+    password: "T-&79N&wy8ukTX2X"
+    database: "shops"
+
+
+playershops:
+    creationPrice: 100.00D
+    rentRegion: false
+    rentPrice: 35.0D
+    rentTimeframe: "1day"
+    defaultShopLimit: 0
+
+auctions:
+    basePrice: 100.0
+    pricePerMinute: 5.75
+    servername: "defaultserver"
+    #Wie lange in Sekunden eine SQL-Anfrage gecashed werden soll.
+    #Wenn X Spieler innerhalb dieser Zeit die gleiche Anfrage senden,
+    #so wird die Auktionsliste aus dem cashe geholt.
+    casheTime: 5
+
+#Wie viele Spieler in der lokalen Topliste gehalten werden sollen.
+#Verschiedene Hologramme k�nnen verschiedene L�ngen haben, aber d�rfen nicht
+#mehr Eintr�ge als die Menge dieser Variable haben.
+#Das speichern von Files und das anzeigen im Chat ist hiervon nicht betroffen.
+TopListLimit: 100
+
+#Alle wieviel Minuten soll die Topliste f�r Hologramme vom SQL-Server geholt werden.
+TopListUpdate: 15
+
+#Ein Graph hat 128 values. Diese Zahl mal 128 wird die sichtbare Zeitspanne f�r
+#Graphen von Spielershops sein. z.B. 1 -> Der Graph zeigt die Statistik f�r 128 Minuten
+# 6 -> Graph zeigt Statistik f�r 12.8 Stunden
+PlayerShopMapGraphTime: 1

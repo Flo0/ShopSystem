@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS `shop_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `buyer` varchar(36) DEFAULT NULL,
+  `seller` varchar(36) DEFAULT NULL,
+  `shop` varchar(36) DEFAULT NULL,
+  `money` double DEFAULT NULL,
+  `ware` longtext,
+  `amount` int(3) DEFAULT '0',
+  `type` varchar(120) DEFAULT NULL,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id` (`shop`) USING HASH,
+  KEY `seller` (`buyer`,`seller`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

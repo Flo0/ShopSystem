@@ -1,0 +1,6 @@
+name: Shop
+version: 1.0.0
+main: com.avarioncraft.shopsystem.ShopCore
+depend: [CT-Core, Vault, LuckPerms]
+softdepend: [Citizens]
+api-version: 1.13
